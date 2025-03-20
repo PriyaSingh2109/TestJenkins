@@ -1,13 +1,5 @@
 pipeline {
-    agent {
-        kubernetes {
-            label 'testkube-agent-namspc'  // This should match the label you defined in your pod template
-			cloud 'kubernetes'
-			defaultContainer 'testkube-cli' // The container within the pod template
-           
-        }
-    }
-
+    agent any
   
     environment {
 		TK_NAMESPACE = 'testkube'
@@ -32,13 +24,12 @@ pipeline {
                     // '''
 					
 					//setupTestkube()
-					//withEnv(["PATH+TESTKUBE=C:\\Program Files\\Testkube"]) {                   
-					bat """
+					withEnv(["PATH+TESTKUBE=C:\\Program Files\\Testkube"]) {                    bat """
                         echo %KUBECONFIG%
                         kubectl config view
                         kubectl-testkube run test priya
                     """
-					//}
+					}
 				}
 		    }
         }
