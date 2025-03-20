@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-            label 'testkubeagentN' // This should match the label you defined in your pod template
+            label 'testkubeagent' // This should match the label you defined in your pod template
 			cloud 'Kubernetes'
 			defaultContainer 'testkube-cli' // The container within the pod template
            
