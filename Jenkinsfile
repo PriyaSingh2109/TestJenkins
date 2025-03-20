@@ -6,7 +6,8 @@ pipeline {
 		TK_VERSION = '1.16.7'
 		// KUBECONFIG = 'C:\\Users\\Priya.Singh\\.kube\\config'
 		// TESTKUBE_PATH = "C:\\Program Files\\Testkube"
-		KUBECONFIG = credentials('kubeconfig-cred')
+		// KUBECONFIG = credentials('kubeconfig-cred')
+		KUBECONFIG = credentials('config')
     }
 	
     stages {		
