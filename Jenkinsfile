@@ -14,11 +14,6 @@ spec:
     - name: testkubecont
       image: "kubeshop/testkube-cli"
       tty: true
-	  command:
-        - "sh"
-      args:
-        - "-c"
-        - "while true; do sleep 3600; done"
       volumeMounts:
         - name: kubeconfig
           mountPath: /root/.kube
