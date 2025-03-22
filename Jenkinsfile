@@ -28,20 +28,20 @@ spec:
     environment {
         TK_NAMESPACE = 'testkube'
         TK_VERSION = '1.16.7'
-        KUBECONFIG = 'root/testkube/.kube'
+        KUBECONFIG = '/root/.kube/config'
     }
     
     stages {
         stage('Setup Testkube') {
             steps {
                 script {
-                    withEnv(["PATH+TESTKUBE=/usr/local/bin"]) {
+                    // withEnv(["PATH+TESTKUBE=/usr/local/bin"]) {
                         sh """
                             echo \$KUBECONFIG
                             kubectl config view
                             kubectl-testkube run test Priya
                         """
-                    }
+                   // }
                 }
             }
         }
