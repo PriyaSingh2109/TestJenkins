@@ -36,10 +36,19 @@ spec:
         stage('Setup Testkube') {
             steps {
                 script {
+				
+					// Print environment variables for debugging
+                    echo "KUBECONFIG: ${KUBECONFIG}"
+                    echo "TK_NAMESPACE: ${TK_NAMESPACE}"
+                    echo "TK_VERSION: ${TK_VERSION}"
+                    
+                    // Check Kubernetes context and configurations
+                    echo "Checking kubectl configuration..."
+                    sh 'kubectl config view'
+					
+					echo "Running Testkube command..."
                     // withEnv(["PATH+TESTKUBE=/usr/local/bin"]) {
                         sh """
-                            echo \$KUBECONFIG
-                            kubectl config view
                             kubectl-testkube run test Priya
 							# Keeping container alive after running the test
 							tail -f /dev/null
