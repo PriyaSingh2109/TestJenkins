@@ -12,8 +12,6 @@ spec:
   containers:
     - name: testkube
       image: "kubeshop/testkube-cli"
-      command:
-        - cat
       tty: true
       volumeMounts:
         - name: kubeconfig
@@ -30,7 +28,7 @@ spec:
     environment {
         TK_NAMESPACE = 'testkube'
         TK_VERSION = '1.16.7'
-        KUBECONFIG = '/home/testkube/.kube'
+        KUBECONFIG = 'root/testkube/.kube'
     }
     
     stages {
