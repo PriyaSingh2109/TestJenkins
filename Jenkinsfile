@@ -30,7 +30,7 @@ spec:
     environment {
         TK_NAMESPACE = 'testkube'
         TK_VERSION = '1.16.7'
-        KUBECONFIG = '/root/.kube/config'
+        KUBECONFIG = '/home/testkube/.kube'
     }
     
     stages {
