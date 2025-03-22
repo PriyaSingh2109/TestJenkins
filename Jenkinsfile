@@ -1,46 +1,51 @@
 pipeline {
     agent {
         kubernetes {
-            label 'testkubeagent' // This should match the label you defined in your pod template
-			cloud 'Kubernetes'
-			defaultContainer 'testkube-cli' // The container within the pod template
-           
+            label 'testkube-agent'  // The label used for this pod template
+            yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    testkube: agent
+spec:
+  containers:
+    - name: testkube
+      image: "kubeshop/testkube-cli"  // Use an image with kubectl and Testkube installed
+      command:
+        - cat
+      tty: true
+      volumeMounts:
+        - name: kubeconfig
+          mountPath: /root/.kube
+          subPath: config
+  volumes:
+    - name: kubeconfig
+      secret:
+        secretName: kubeconfigcred  // Your Kubernetes secret with the kubeconfig file
+"""
         }
     }
-
-  
+    
     environment {
-		TK_NAMESPACE = 'testkube'
-		TK_VERSION = '1.16.7'
-		// KUBECONFIG = 'C:\\Users\\Priya.Singh\\.kube\\config'
-		// TESTKUBE_PATH = "C:\\Program Files\\Testkube"
-		// KUBECONFIG = credentials('kubeconfig-cred')
-		KUBECONFIG = credentials('kubeconfigcred')
+        TK_NAMESPACE = 'testkube'
+        TK_VERSION = '1.16.7'
+        KUBECONFIG = '/root/.kube/config'
     }
-	
-    stages {		
-		stage('Setup Testkube') {
+    
+    stages {
+        stage('Setup Testkube') {
             steps {
                 script {
-                    // setupTestkube()
-                    // bat 'kubectl testkube run test priya'
-                   
-					//bat '''
-                    //    echo %KUBECONFIG%
-                    //    kubectl config view
-                    //    kubectl testkube run test priya
-                    // '''
-					
-					//setupTestkube()
-					//withEnv(["PATH+TESTKUBE=C:\\Program Files\\Testkube"]) {                   
-					bat """
-                        echo %KUBECONFIG%
-                        kubectl config view
-                        kubectl-testkube run test priya
-                    """
-					//}
-				}
-		    }
+                    withEnv(["PATH+TESTKUBE=/usr/local/bin"]) {
+                        sh """
+                            echo \$KUBECONFIG
+                            kubectl config view
+                            kubectl-testkube run test Priya
+                        """
+                    }
+                }
+            }
         }
     }
 }
