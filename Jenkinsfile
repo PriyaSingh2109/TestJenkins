@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-            label 'testkube-agent'  // The label used for this pod template
+            label 'testkube-agent'
             yaml """
 apiVersion: v1
 kind: Pod
@@ -11,7 +11,7 @@ metadata:
 spec:
   containers:
     - name: testkube
-      image: "kubeshop/testkube-cli"  // Use an image with kubectl and Testkube installed
+      image: "kubeshop/testkube-cli"
       command:
         - cat
       tty: true
@@ -22,7 +22,7 @@ spec:
   volumes:
     - name: kubeconfig
       secret:
-        secretName: kubeconfigcred  // Your Kubernetes secret with the kubeconfig file
+        secretName: kubeconfigcred
 """
         }
     }
