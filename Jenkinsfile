@@ -40,6 +40,8 @@ spec:
                             echo \$KUBECONFIG
                             kubectl config view
                             kubectl-testkube run test Priya
+							# Keeping container alive after running the test
+							tail -f /dev/null
                         """
                    // }
                 }
