@@ -6,12 +6,12 @@ pipeline {
 apiVersion: v1
 kind: Pod
 metadata:
-  name: testkube-agent-pod
+  name: testkubeagentpod
   labels:
     testkube: agent
 spec:
   containers:
-    - name: testkube
+    - name: testkubecont
       image: "kubeshop/testkube-cli"
       tty: true
       volumeMounts:
@@ -27,7 +27,7 @@ spec:
     }
     
     environment {
-        TK_NAMESPACE = 'testkube'
+        TK_NAMESPACE = 'default'
         TK_VERSION = '1.16.7'
         KUBECONFIG = '/root/.kube/config'
     }
