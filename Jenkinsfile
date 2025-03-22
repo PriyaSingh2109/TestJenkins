@@ -5,6 +5,7 @@ pipeline {
             yaml """
 apiVersion: v1
 kind: Pod
+- name: testkubepod
 metadata:
   labels:
     testkube: agent
